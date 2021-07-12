@@ -229,8 +229,6 @@ export default {
     min-height: 100%;
     padding: 25px;
     box-sizing: border-box;
-   
-
 }
 
 

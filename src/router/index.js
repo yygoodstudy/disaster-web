@@ -44,7 +44,44 @@ export const constRouter = [
 ]
 
 // 动态路由 communication
-export const asyncRoutes = [
+export const asyncRoutes = [ 
+
+  // 人员管理
+  {
+    path: '/usermanage',
+    component: Layout,
+    redirect: '/home/index',
+    meta:{
+      title: "人员管理",
+      icon: 'el-icon-user-solid',
+      hidden: false,
+    },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/usermanage/index.vue'),
+        name: 'backgroundusermanage',
+        meta: {
+          title: "后台用户管理",
+          icon: 'el-icon-user-solid',
+          hidden: false,
+          roles: ['admin','jerry']
+        }
+      },
+      {
+        path: 'reporter',
+        component: () => import('@/views/usermanage/reporter.vue'),
+        name: 'reportermanage',
+        meta: {
+          title: "上报人员管理",
+          icon: 'el-icon-message-solid',
+          hidden: false,
+          roles: ['admin','jerry']
+        }
+      },
+    ]
+  },
+
   {
     path: '/analyze',
     component: Layout,
@@ -372,6 +409,7 @@ export const asyncRoutes = [
       },
     ]
   }
+ 
 ]
 
 const router = new VueRouter({
@@ -379,6 +417,13 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes: constRouter
 })
+
+// 解决this.$router.push('')报错：Uncaught (in promise) Error: Redirected when going from "/login?redirect=%2Findex" to "/index" via a navigation guard.问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+return originalPush.call(this, location).catch(err => err)
+}
 
 export default router
 

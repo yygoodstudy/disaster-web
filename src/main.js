@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import axios from 'axios';
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -22,6 +23,9 @@ import  VueParticles  from   'vue-particles'
 // 引入图表
 import VCharts from 'v-charts'
 
+// 引入全局路径配置
+import global_ from './base.vue'
+
 Vue.use(VCharts)
 
 // 制作地图
@@ -37,6 +41,8 @@ Vue.use(dataV)
 
 
 Vue.config.productionTip = false
+Vue.prototype.GLOBAL = global_
+axios.defaults.baseURL = global_.BASE_URL
 
 Vue.use(HappyScroll)
 
@@ -51,6 +57,7 @@ import './router/permission'
 
 // 全局注册指令
 import vPermission from './directive/permission'
+import VueRouter from 'vue-router';
 Vue.directive('permission',vPermission)
 
 new Vue({

@@ -1,6 +1,5 @@
 <template>
     <div class="Informationall">
-       <!-- <div class="Informationall-box"> -->
             <el-tabs v-model="activeName" @tab-click="handleClick" class="Informationall-box">
                 <el-tab-pane label="通知" name="first">
                     <div class="Informationall-list">
@@ -18,7 +17,6 @@
                     </div>
                 </el-tab-pane>
             </el-tabs>
-       <!-- </div> -->
     </div>
 </template>
 
